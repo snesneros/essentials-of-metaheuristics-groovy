@@ -20,5 +20,19 @@ class TreeNode {
             value(children)
         }
     }
+    
+    def getTreeSize(){ //this is really terrible and we should figure out a better way to do it.
+        def sum = 1
+        children.each{child ->
+            sum += child.getTreeSize()
+        }
+        return sum
+    }
+    def getTreeDepth(){ //this is really terrible and we should figure out a better way to do it.
+        def max = 0
+        children.each{child ->
+            max = Math.max(child.getTreeDepth(), max)}
+        return max + 1
+    }
 
 }

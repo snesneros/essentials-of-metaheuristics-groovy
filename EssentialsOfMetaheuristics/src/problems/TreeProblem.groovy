@@ -1,8 +1,11 @@
-package geneticProgram
+package problems
+
+import geneticProgram.FunctionArityPair;
+import geneticProgram.TreeNode;
 
 import java.util.Random;
 
-class TreeGenerator {
+class TreeProblem {
 
     Random rand = new Random()
     def maxDepth = 20
@@ -31,15 +34,36 @@ class TreeGenerator {
             tempNode = new TreeNode(value : functions[index].function, arity : functions[index].arity);
         }
         tempNode.arity.times {
-            tempNode.children.add(makeTree())
+            tempNode.children.add(makeTree(currentDepth++))
         }
         return tempNode
     }
-
-    def getTreeSize(root){ //this is really terrible and we should figure out a better way to do it.
-        1 + root.children.each{child ->
-            getTreeSize(child)
+    
+    def create = {->
+        def index = rand.nextInt(functions.size())
+        def tempNode = new TreeNode(value : functions[index].function, arity : functions[index].arity);
+        tempNode.arity.times {
+            tempNode.children.add(makeTree(1))
         }
+        return tempNode
     }
+    
+    def copy = {tree ->
+        //TODO: turn this into a thing
+    }
+    
+    def mutate = {tree ->
+        //TODO: randomize a subtree
+    }
+    
+    def pointMutate = {node ->
+        //TODO: randomize a node
+    }
+    
+    def crossover = {firstTree, SecondTree ->
+        
+    }
+
+    
 
 }
