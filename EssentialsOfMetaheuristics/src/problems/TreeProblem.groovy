@@ -8,30 +8,30 @@ import java.util.Random;
 class TreeProblem {
 
     Random rand = new Random()
-    def maxDepth = 20
+    def maxDepth = 8
     def terminalProb = 0.5
 
     def functions = [
-        def add = new FunctionArityPair(function : {array -> array[0] + array[1]}, arity : 2),
-        def subtract = new FunctionArityPair(function : {array -> array[0] - array[1]}, arity : 2),
-        def multi = new FunctionArityPair(function : {array -> array[0]*array[1]}, arity : 2),
-        def divide = new FunctionArityPair(function : {array -> array[0]/array[1]}, arity : 2),
-        def cosine = new FunctionArityPair(function : {array -> Math.cos(array[0])}, arity : 1),
-        def sine = new FunctionArityPair(function : {array -> Math.sin(array[0])}, arity : 1),
-        def log = new FunctionArityPair(function : {array -> Math.log(array[0])}, arity :1)
+        def add = new FunctionArityPair(function : {array -> array[0] + array[1]}, arity : 2, string : "+"),
+        def subtract = new FunctionArityPair(function : {array -> array[0] - array[1]}, arity : 2, string : "-"),
+        def multi = new FunctionArityPair(function : {array -> array[0]*array[1]}, arity : 2, string: "*"),
+        def divide = new FunctionArityPair(function : {array -> array[0]/array[1]}, arity : 2, string : "/"),
+        def cosine = new FunctionArityPair(function : {array -> Math.cos(array[0])}, arity : 1, string : "cos"),
+        def sine = new FunctionArityPair(function : {array -> Math.sin(array[0])}, arity : 1, string : "sin"),
+        def log = new FunctionArityPair(function : {array -> Math.log(array[0])}, arity :1, string: "log")
     ]
 
-    def terminals = [ "x", "y", "z", 5, 10, 32, rand.nextInt()]
+    def terminals = [ {-> "x"}, {-> "y"}, {-> "z"}, {-> 5}, {-> 10}, {-> 32}, {-> rand.nextInt()}]
 
     def makeTree(currentDepth){
         def tempNode
         def selector = rand.nextDouble()
-        if(selector <= terminalProb || currentDepth == maxDepth) {
+        if(selector <= terminalProb || currentDepth >= maxDepth) {
             def index = rand.nextInt(terminals.size())
-            tempNode = new TreeNode(value : terminals[index], arity : 0);
+            tempNode = new TreeNode(value : terminals[index](), arity : 0);
         } else {
             def index = rand.nextInt(functions.size())
-            tempNode = new TreeNode(value : functions[index].function, arity : functions[index].arity);
+            tempNode = new TreeNode(value : functions[index].function, arity : functions[index].arity, valueString : functions[index].string);
         }
         tempNode.arity.times {
             tempNode.children.add(makeTree(currentDepth++))
@@ -41,7 +41,7 @@ class TreeProblem {
 
     def create = {->
         def index = rand.nextInt(functions.size())
-        def tempNode = new TreeNode(value : functions[index].function, arity : functions[index].arity);
+        def tempNode = new TreeNode(value : functions[index].function, arity : functions[index].arity, valueString : functions[index].string);
         tempNode.arity.times {
             tempNode.children.add(makeTree(1))
         }
@@ -57,17 +57,24 @@ class TreeProblem {
         return newNode
     }
 
-    def mutate = {tree ->
-        //TODO: randomize a subtree
+    /*
+     * Beyond MaxDepth, mutate will only generate terminals, potentially killing subtrees
+     */
+    def mutate = {oldTree, depth = rand.nextInt(tree.getTreeDepth()) ->
+        def tree = copy(oldTree)
+        def node = approachNode(tree, depth)
+        def tempNode = makeTree(depth)
+        node.value = tempNode.value
+        node.arity = tempNode.arity
+        node.valueString = tempNode.valueString
+        node.children = tempNode.children
     }
 
-    def pointMutate = {tree, depth = rand.nextInt(tree.getTreeDepth())->
-        def node = tree
-        if(tree.arity != 0) {
-            node = approachNode(tree.children[rand.nextInt(tree.children.size())], depth--)
-        }
+    def pointMutate = {oldTree, depth = rand.nextInt(tree.getTreeDepth())->
+        def tree = copy(oldTree)
+        def node = approachNode(tree, depth)
         if(node.arity == 0){
-            node.value = terminals[rand.nextInt(terminals.size())]
+            node.value = terminals[rand.nextInt(terminals.size())]()
             node.valueString = node.value
         }else{
             def candidates = functions.findAll() {it.arity == node.arity}
@@ -86,8 +93,11 @@ class TreeProblem {
         }
     }
 
-    def crossover = {firstTree, SecondTree ->
-
+    def crossover = {firstTree, secondTree ->
+        def copyOne = copy(firstTree)
+        def copyTwo= copy(secondTree)
+        def subTreeOne = null
+        def subTreeTwo = null 
     }
 
 

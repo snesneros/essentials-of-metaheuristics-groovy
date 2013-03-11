@@ -14,7 +14,7 @@ class toStringSpec extends Specification{
         def result = tts.symTree.toString()
         
         then:
-        result == ""
+        result == " 13 z + 7 * y 2 / x - +"
         
     }
 }
