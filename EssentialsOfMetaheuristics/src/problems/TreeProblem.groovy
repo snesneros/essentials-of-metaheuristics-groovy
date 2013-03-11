@@ -38,7 +38,7 @@ class TreeProblem {
         }
         return tempNode
     }
-    
+
     def create = {->
         def index = rand.nextInt(functions.size())
         def tempNode = new TreeNode(value : functions[index].function, arity : functions[index].arity);
@@ -47,23 +47,49 @@ class TreeProblem {
         }
         return tempNode
     }
-    
+
     def copy = {tree ->
-        //TODO: turn this into a thing
+        def newNode = tree.clone()
+        newNode.children = []
+        tree.children.each{child ->
+            newNode.children.add(copy(child))
+        }
+        return newNode
     }
-    
+
     def mutate = {tree ->
         //TODO: randomize a subtree
     }
-    
-    def pointMutate = {node ->
-        //TODO: randomize a node
-    }
-    
-    def crossover = {firstTree, SecondTree ->
-        
+
+    def pointMutate = {tree, depth = rand.nextInt(tree.getTreeDepth())->
+        def node = tree
+        if(tree.arity != 0) {
+            node = approachNode(tree.children[rand.nextInt(tree.children.size())], depth--)
+        }
+        if(node.arity == 0){
+            node.value = terminals[rand.nextInt(terminals.size())]
+            node.valueString = node.value
+        }else{
+            def candidates = functions.findAll() {it.arity == node.arity}
+            def replacement = candidates[rand.nextInt(candidates.size())]
+            node.value = replacement.function
+            node.valueString = replacement.string
+        }
+        return tree
     }
 
-    
+    def approachNode = {node, depth ->
+        if(depth == 0 || node.arity == 0) {
+            return node
+        } else {
+            approachNode(node.children[rand.nextInt(node.children.size())], depth--)
+        }
+    }
+
+    def crossover = {firstTree, SecondTree ->
+
+    }
+
+
 
 }
