@@ -11,17 +11,9 @@ class TreeProblem {
     def maxDepth = 8
     def terminalProb = 0.5
 
-    def functions = [
-        def add = new FunctionArityPair(function : {array -> array[0] + array[1]}, arity : 2, string : "+"),
-        def subtract = new FunctionArityPair(function : {array -> array[0] - array[1]}, arity : 2, string : "-"),
-        def multi = new FunctionArityPair(function : {array -> array[0]*array[1]}, arity : 2, string: "*"),
-        def divide = new FunctionArityPair(function : {array -> array[0]/array[1]}, arity : 2, string : "/"),
-        def cosine = new FunctionArityPair(function : {array -> Math.cos(array[0])}, arity : 1, string : "cos"),
-        def sine = new FunctionArityPair(function : {array -> Math.sin(array[0])}, arity : 1, string : "sin"),
-        def log = new FunctionArityPair(function : {array -> Math.log(array[0])}, arity :1, string: "log")
-    ]
+    def functions = []
 
-    def terminals = [ {-> "x"}, {-> "y"}, {-> "z"}, {-> 5}, {-> 10}, {-> 32}, {-> rand.nextInt()}]
+    def terminals = []
 
     def makeTree(currentDepth){
         def tempNode
@@ -60,7 +52,7 @@ class TreeProblem {
     /*
      * Beyond MaxDepth, mutate will only generate terminals, potentially killing subtrees
      */
-    def mutate = {oldTree, depth = rand.nextInt(tree.getTreeDepth()) ->
+    def mutate = {oldTree, depth = rand.nextInt(oldTree.getTreeDepth()) ->
         def tree = copy(oldTree)
         def node = approachNode(tree, depth)
         def tempNode = makeTree(depth)
@@ -70,7 +62,7 @@ class TreeProblem {
         node.children = tempNode.children
     }
 
-    def pointMutate = {oldTree, depth = rand.nextInt(tree.getTreeDepth())->
+    def pointMutate = {oldTree, depth = rand.nextInt(oldTree.getTreeDepth())->
         def tree = copy(oldTree)
         def node = approachNode(tree, depth)
         if(node.arity == 0){
@@ -93,11 +85,21 @@ class TreeProblem {
         }
     }
 
-    def crossover = {firstTree, secondTree ->
+    def crossover = {firstTree, secondTree, depthOne = rand.nextInt(firstTree.getTreeDepth()), depthTwo = rand.nextInt(secondTree.getTreeDepth()) ->
         def copyOne = copy(firstTree)
-        def copyTwo= copy(secondTree)
-        def subTreeOne = null
-        def subTreeTwo = null 
+        def copyTwo = copy(secondTree)
+        def subTreeOne = approachNode(copyOne, depthOne)
+        def subTreeTwo = approachNode(copyTwo, depthTwo) 
+        def tempNode = subTreeOne.clone()
+        subTreeOne.children = subTreeTwo.children
+        subTreeOne.arity = subTreeTwo.arity
+        subTreeOne.value = subTreeTwo.value
+        subTreeOne.valueString = subTreeTwo.valueString
+        subTreeTwo.children = tempNode.children
+        subTreeTwo.arity = tempNode.arity
+        subTreeTwo.value = tempNode.value
+        subTreeTwo.valueString = tempNode.valueString
+        return [copyOne, copyTwo]        
     }
 
 
