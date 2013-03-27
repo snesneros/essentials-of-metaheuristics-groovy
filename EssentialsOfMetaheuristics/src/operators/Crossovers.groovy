@@ -1,4 +1,5 @@
 package operators
+import problems.TreeProblem
 
 class Crossovers{
 	static random = new Random()
@@ -35,5 +36,22 @@ class Crossovers{
 			}
 		}
 		[f,m]
+	}
+	
+	def treeCrossover = {firstTree, secondTree, depthOne = random.nextInt(firstTree.getTreeDepth()), depthTwo = random.nextInt(secondTree.getTreeDepth()) ->
+		def copyOne = TreeProblem.copy(firstTree)
+		def copyTwo = TreeProblem.copy(secondTree)
+		def subTreeOne = approachNode(copyOne, depthOne)
+		def subTreeTwo = approachNode(copyTwo, depthTwo)
+		def tempNode = subTreeOne.clone()
+		subTreeOne.children = subTreeTwo.children
+		subTreeOne.arity = subTreeTwo.arity
+		subTreeOne.value = subTreeTwo.value
+		subTreeOne.valueString = subTreeTwo.valueString
+		subTreeTwo.children = tempNode.children
+		subTreeTwo.arity = tempNode.arity
+		subTreeTwo.value = tempNode.value
+		subTreeTwo.valueString = tempNode.valueString
+		return [copyOne, copyTwo]
 	}
 }

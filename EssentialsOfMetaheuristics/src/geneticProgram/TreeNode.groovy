@@ -20,13 +20,14 @@ class TreeNode {
         else{
             def valueArray = []
             children.each{child ->
+				// println("Child = {${child}}, and map = ${variableValueMap}")
                 valueArray.add(child.evaluate(variableValueMap))
             }
             value(valueArray)
         }
     }
     
-    def getTreeSize(){ //this is really terrible and we should figure out a better way to do it.
+    def getTreeSize(){
         def sum = 1
         children.each{child ->
             sum += child.getTreeSize()
@@ -34,7 +35,7 @@ class TreeNode {
         return sum
     }
     
-    def getTreeDepth(){ //this is really terrible and we should figure out a better way to do it.
+    def getTreeDepth(){
         def max = 0
         children.each{child ->
             max = Math.max(child.getTreeDepth(), max)}

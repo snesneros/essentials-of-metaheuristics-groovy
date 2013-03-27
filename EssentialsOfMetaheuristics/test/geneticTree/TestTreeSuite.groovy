@@ -8,9 +8,17 @@ class TestTreeSuite {
     def subtract = new FunctionArityPair(function : {array -> array[0] - array[1]}, arity : 2, string : "-")
     def multi = new FunctionArityPair(function : {array -> array[0]*array[1]}, arity : 2, string: "*")
     def divide = new FunctionArityPair(function : {array -> array[0]/array[1]}, arity : 2, string : "/")
+	def protectDivide = new FunctionArityPair(function : {array -> 
+			if(array[1] <= 0){
+				return 1
+				}else{array[0]/array[1]}}, arity : 2, string : "%")
     def cosine = new FunctionArityPair(function : {array -> Math.cos(array[0])}, arity : 1, string : "cos")
     def sine = new FunctionArityPair(function : {array -> Math.sin(array[0])}, arity : 1, string : "sin")
     def log = new FunctionArityPair(function : {array -> Math.log(array[0])}, arity :1, string: "log")
+	def protectLog = new FunctionArityPair(function : {array ->
+		if(array[0] <= 0 ){
+			return 1
+		}else{Math.log(array[0])}}, arity :1, string: "Plog")
 
     def terminals = [ "x", "y", "z", 7, 2, 13]
 

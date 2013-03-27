@@ -11,10 +11,6 @@ class TreeProblem {
     def maxDepth = 8
     def terminalProb = 0.5
 
-    def functions = []
-
-    def terminals = []
-
     def makeTree(currentDepth){
         def tempNode
         def selector = rand.nextDouble()
@@ -39,6 +35,8 @@ class TreeProblem {
         }
         return tempNode
     }
+	
+	def random = create
 
     def copy = {tree ->
         def newNode = tree.clone()
@@ -49,10 +47,11 @@ class TreeProblem {
         return newNode
     }
 
+	
     /*
      * Beyond MaxDepth, mutate will only generate terminals, potentially killing subtrees
      */
-    def mutate = {oldTree, depth = rand.nextInt(oldTree.getTreeDepth()) ->
+    def tweak = {oldTree, depth = rand.nextInt(oldTree.getTreeDepth()) ->
         def tree = copy(oldTree)
         def node = approachNode(tree, depth)
         def tempNode = makeTree(depth)
@@ -60,6 +59,7 @@ class TreeProblem {
         node.arity = tempNode.arity
         node.valueString = tempNode.valueString
         node.children = tempNode.children
+		tree
     }
 
     def pointMutate = {oldTree, depth = rand.nextInt(oldTree.getTreeDepth())->
@@ -101,6 +101,10 @@ class TreeProblem {
         subTreeTwo.valueString = tempNode.valueString
         return [copyOne, copyTwo]        
     }
+	
+	def terminate = { a, q = quality(a) ->
+		evalCount >= maxIterations
+	}
 
 
 
