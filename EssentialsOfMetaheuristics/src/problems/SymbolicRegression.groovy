@@ -27,7 +27,7 @@ class SymbolicRegression extends TreeProblem {
 			}else{Math.log(array[0])}}, arity :1, string: "log")
 	]
 
-	def terminals = [ {-> "x"}, {-> 5}, {-> 10}, {-> 32}, {-> RandomGenerator.nextInt()}]
+	def terminals = [ {-> "x"}, {-> 5}, {-> 10}, {-> 32}, {-> rand.nextInt(4)}]
 
 	def testPoints =[['x' : 2], ['x':3], ['x':4],['x':5],['x':6],['x':7],['x':8],['x':9],['x':10]]
 

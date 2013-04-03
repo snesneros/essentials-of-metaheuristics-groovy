@@ -41,7 +41,7 @@ class MutateAndCopySpec extends Specification{
         def prob = new SymbolicRegression()
         
         when:
-        def mutantTree = prob.tweak(tts.symTree)
+        def mutantTree = prob.mutate(tts.symTree)
         
         then:
         tts.symTree.toString() != mutantTree.toString()

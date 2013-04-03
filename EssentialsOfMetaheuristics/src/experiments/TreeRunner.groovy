@@ -23,7 +23,7 @@ class TreeRunner {
 //        def problem = new SymbolicRegression(terminals : [{-> "x"}, {-> "y"}, {-> "z"}, {-> RandomGenerator.nextInt()}], problemFunction : {vars-> ((13+vars.getAt('z'))*7)+(vars.getAt('x')-(vars.getAt('y')/2))},
 //        testPoints : [[ 'x' : 1, 'y' : 1, 'z' : 1], ['x' : 2, 'y' : 2, 'z' : 2], ['x' : 3, 'y' : 3, 'z' : 3], ['x' : 4, 'y' : 4, 'z' : 4], ['x' : 5, 'y' : 5, 'z' : 5]])
         
-        def problem = new SymbolicRegression(terminals : [{-> "x"}, {-> RandomGenerator.nextInt()}], problemFunction : {vars-> Math.sin(vars.getAt('x'))})
+        def problem = new SymbolicRegression(problemFunction : {vars-> 10*Math.sin(vars.getAt('x'))})
         def searchers = [
             new GeneticAlgorithm(crossover : problem.crossover)
         ]

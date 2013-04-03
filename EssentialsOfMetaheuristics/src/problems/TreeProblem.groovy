@@ -10,6 +10,7 @@ class TreeProblem {
     Random rand = new Random()
     def maxDepth = 8
     def terminalProb = 0.5
+    def tweakProb = 0.5
 
     def makeTree(currentDepth){
         def tempNode
@@ -47,11 +48,20 @@ class TreeProblem {
         return newNode
     }
 
+    def tweak = {tree ->
+        def selector = rand.nextDouble()
+        if(selector <= tweakProb) {
+            pointMutate(tree)
+        } else {
+            mutate(tree)
+        }
+    }
+    
 	
     /*
      * Beyond MaxDepth, mutate will only generate terminals, potentially killing subtrees
      */
-    def tweak = {oldTree, depth = rand.nextInt(oldTree.getTreeDepth()) ->
+    def mutate = {oldTree, depth = rand.nextInt(oldTree.getTreeDepth()) ->
         def tree = copy(oldTree)
         def node = approachNode(tree, depth)
         def tempNode = makeTree(depth)
