@@ -32,7 +32,7 @@ class TestTreeSuite {
     def node7 = new TreeNode(value : 7, arity : 0)
     def node8 = new TreeNode(value : "x", arity : 0)
     def node9 = new TreeNode(value : multi.function, arity : 2, children : [node5, node7], valueString : multi.string)
-    def node10 = new TreeNode(value : subtract.function, arity : 2, children : [node6, node8], valueString: subtract.string)
+    def node10 = new TreeNode(value : subtract.function, arity : 2, children : [node8, node6], valueString: subtract.string)
     def symTree = new TreeNode(value : add.function, arity : 2, children : [node9, node10], valueString : add.string)
     //symTree: ((13+z)*7)+(x-(y/2))
 }
