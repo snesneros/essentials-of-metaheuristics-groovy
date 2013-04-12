@@ -1,6 +1,6 @@
 package experiments
 
-import applications.robocode.RoboCodeProblem
+import applications.robocode.REXProblem
 import populationMethods.MuPlusLambdaES
 import problems.HIFF
 import problems.LeadingOnes
@@ -30,7 +30,7 @@ class RoboCodeExperimentRunner {
             new MuPlusLambdaES()
         ]
         def problems = [
-            new RoboCodeProblem()
+            new REXProblem()
         ]
         // It would be nice to collect the total time here and include it in the
         // output.
