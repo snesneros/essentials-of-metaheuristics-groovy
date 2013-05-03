@@ -1,75 +1,89 @@
-package applications.robocode;
+package evolved;
 
 import robocode.*;
-import robocode.control.events.BattleStartedEvent
 import java.awt.*;
+import static robocode.util.Utils.normalRelativeAngleDegrees;
 
-public class REX extends AdvancedRobot {
+public class Individual_${id} extends AdvancedRobot {
+    boolean movingForward;
+    int dist = 50;
 
-    def width;
-    def height;
-    def energy;
-    def gunHeading;
-    def gunHeat;
-    def heading;
-    def numOpponents;
-    def radarHeading;
-    def xCoord;
-    def yCoord;
+    double width;
+    double height;
+    double energy;
+    double gunHeading;
+    double gunHeat;
+    double heading;
+    int numOpponents;
+    double radarHeading;
+    double xCoord;
+    double yCoord;
+    double enemyBearing;
+    double enemyDistance;
+    double enemyEnergy;
+    double enemyHeading;
+    double enemyVelocity;
+
 
     public void run() {
-        setBodyColor(new Color(0, 216, 240));
+        setBodyColor(new Color(255,20,147));
         setGunColor(new Color(255, 255, 255));
         setRadarColor(new Color(255, 255, 255));
-        setBulletColor(new Color(0, 216, 240));
-        setScanColor(new Color(0, 216, 240));
+        setBulletColor(new Color(255,20,147));
+        setScanColor(new Color(255,20,147));
 
         while (true) {
-
+            ${run}
+            execute();
         }
     }
-    
-    public void onBattleStarted(BattleStartedEvent event) {
-        numOpponents = event.getRobotsCount() - 1;
-        BattleRules rules = event.getBattleRules();
-        width = rules.getBattlefieldWidth();
-        height = rules.getBattlefieldHeight();
-    }
-    
+
+    //    public void onBattleStarted(BattleStartedEvent event) {
+    //        numOpponents = event.getRobotsCount() - 1;
+    //        BattleRules rules = event.getBattleRules();
+    //        width = rules.getBattlefieldWidth();
+    //        height = rules.getBattlefieldHeight();
+    //    }
+
     //This method is called when your robot collides with a wall.
     public void onHitWall(HitWallEvent e) {
-        
+        ${onHitWall}
     }
 
     //This method is called when your robot sees another robot, i.e. when the robot's radar scan "hits" another robot.
     public void onScannedRobot(ScannedRobotEvent e) {
-
+        enemyBearing = e.getBearing();
+        enemyDistance = e.getDistance();
+        enemyEnergy = e.getEnergy();
+        enemyHeading = e.getHeading();
+        enemyVelocity = e.getVelocity();
+        ${onScannedRobot}
     }
 
     //This method is called when your robot collides with another robot.
     public void onHitRobot(HitRobotEvent e) {
-
+        ${onHitRobot}
     }
 
     //This method is called when one of your bullets hits another robot.
     public void onBulletHit(BulletHitEvent event) {
-
+        ${onBulletHit}
     }
 
     //This method is called when one of your bullets misses, i.e. hits a wall.
     public void onBulletMissed(BulletMissedEvent event) {
-
+        ${onBulletMissed}
     }
 
     //This method is called when your robot is hit by a bullet.
     public void onHitByBullet(HitByBulletEvent event) {
-
+        ${onHitByBullet}
     }
 
     //This method is called every turn in a battle round in order to provide
     //the robot status as a complete snapshot of the robot's current state at that specific time.
     public void onStatus(StatusEvent event) {
-        RobotStatus stat = StatusEvent.getStatus();
+        RobotStatus stat = event.getStatus();
         //Returns the robot's current energy.
         energy = stat.getEnergy();
         //Returns the direction that the robot's gun is facing, in degrees.

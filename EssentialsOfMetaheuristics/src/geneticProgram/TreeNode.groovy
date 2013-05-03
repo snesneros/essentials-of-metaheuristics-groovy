@@ -7,21 +7,15 @@ class TreeNode {
     def value
     def valueString = value
 
-    def evaluate(variableValueMap){
+    def evaluate(){
         assert(children.size() == arity)
         if(arity == 0){
-            if(value.class == Integer){
-                value
-            }
-            else{
-                variableValueMap.getAt(value)
-            }
+            value
         }
         else{
             def valueArray = []
             children.each{child ->
-				// println("Child = {${child}}, and map = ${variableValueMap}")
-                valueArray.add(child.evaluate(variableValueMap))
+                valueArray.add(child.evaluate())
             }
             value(valueArray)
         }
