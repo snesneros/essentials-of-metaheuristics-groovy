@@ -4,7 +4,7 @@ import robocode.*;
 import java.awt.*;
 import static robocode.util.Utils.normalRelativeAngleDegrees;
 
-public class Individual_${id} extends AdvancedRobot {
+public class REX_${id} extends AdvancedRobot {
     boolean movingForward;
     int dist = 50;
 

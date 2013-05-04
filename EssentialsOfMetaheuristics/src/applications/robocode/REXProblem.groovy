@@ -258,6 +258,98 @@ class REXProblem extends TreeProblem {
         def num1 = rand.nextInt(secondaryTerminals.size())
         "setTurnGunRight(" + secondaryTerminals[num1] + ");"
     }
+    
+    def setTurnLeftIf = {->
+        def secondaryTerminals = [
+            width,
+            height,
+            energy,
+            gunHeading,
+            gunHeat,
+            heading,
+            radarHeading,
+            xCoord,
+            yCoord,
+            enemyBearing,
+            enemyDistance,
+            enemyEnergy,
+            enemyHeading,
+            enemyVelocity,
+            rando(360)
+        ]
+        def num1 = rand.nextInt(secondaryTerminals.size())
+        def num2 = rand.nextInt(secondaryTerminals.size())
+        def num3 = rand.nextInt(secondaryTerminals.size())
+        "if(" + secondaryTerminals[num1] + "<" + secondaryTerminals[num2] + ") {setTurnLeft(" + secondaryTerminals[num3] + ");}"
+    }
+
+    def setTurnLeft = {->
+        def secondaryTerminals = [
+//            width,
+//            height,
+//            energy,
+//            gunHeading,
+//            gunHeat,
+//            heading,
+//            radarHeading,
+//            xCoord,
+//            yCoord,
+//            enemyBearing,
+//            enemyDistance,
+//            enemyEnergy,
+//            enemyHeading,
+//            enemyVelocity,
+            rando(360)
+        ]
+        def num1 = rand.nextInt(secondaryTerminals.size())
+        "setTurnLeft(" + secondaryTerminals[num1] + ");"
+    }
+
+    def setTurnRightIf = {->
+        def secondaryTerminals = [
+            width,
+            height,
+            energy,
+            gunHeading,
+            gunHeat,
+            heading,
+            radarHeading,
+            xCoord,
+            yCoord,
+            enemyBearing,
+            enemyDistance,
+            enemyEnergy,
+            enemyHeading,
+            enemyVelocity,
+            rando(360)
+        ]
+        def num1 = rand.nextInt(secondaryTerminals.size())
+        def num2 = rand.nextInt(secondaryTerminals.size())
+        def num3 = rand.nextInt(secondaryTerminals.size())
+        "if(" + secondaryTerminals[num1] + "<" + secondaryTerminals[num2] + ") {setTurnRight(" + secondaryTerminals[num3] + ");}"
+    }
+
+    def setTurnRight = {->
+        def secondaryTerminals = [
+//            width,
+//            height,
+//            energy,
+//            gunHeading,
+//            gunHeat,
+//            heading,
+//            radarHeading,
+//            xCoord,
+//            yCoord,
+//            enemyBearing,
+//            enemyDistance,
+//            enemyEnergy,
+//            enemyHeading,
+//            enemyVelocity,
+            rando(360)
+        ]
+        def num1 = rand.nextInt(secondaryTerminals.size())
+        "setTurnRight(" + secondaryTerminals[num1] + ");"
+    }
 
     def setTurnRadarLeftIf = {->
         def secondaryTerminals = [
@@ -370,10 +462,13 @@ class REXProblem extends TreeProblem {
         setTurnRadarLeft,
         setTurnRadarRightIf,
         setTurnRadarRight,
+        setTurnLeft,
+        setTurnLeftIf,
+        setTurnRight,
+        setTurnRightIf
     ]
 
     def random = {->
-        System.out.println("Creating")
         ++individualCount
         def run = create()
         def onHitWall = create()
@@ -382,7 +477,6 @@ class REXProblem extends TreeProblem {
         def onBulletHit = create()
         def onBulletMissed = create()
         def onHitByBullet = create()
-        System.out.println("Created")
         [
                     'id' : individualCount,
                     'run' : run.evaluate(),
@@ -403,15 +497,12 @@ class REXProblem extends TreeProblem {
     }
 
     def quality = {individual ->
-        System.out.println("Getting Quality")
         ++evalCount
         robotBuilder.buildJarFile(individual)
-        System.out.println("gotHere")
         battleRunner.buildBattleFile(individual['id'])
-        System.out.println("gotHere2")
         def score = battleRunner.runBattle(individual['id'])
         fitnesses[individual['id']] = score
-        System.out.println(score)
+        System.out.println("REX_" + individual['id'] + ": " + score)
         return score
     }
 
