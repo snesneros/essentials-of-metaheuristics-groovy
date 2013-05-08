@@ -5,4 +5,5 @@ robocode.battle.numRounds=10
 robocode.battle.gunCoolingRate=0.1
 robocode.battle.rules.inactivityTime=450
 robocode.battle.hideEnemyNames=true
-robocode.battle.selectedRobots=evolved.REX_${id},evolved.Chupa,evolved.DarkSoul_1099,evolved.GateKeeper_101,evolved.HappyRobot_448457,evolved.HypeMachine_10352,evolved.Individual_4860595331639992901,evolved.KittenCannon_566,evolved.Shazbot_null2,evolved.Trollbot_7679,MACHINA.DEUS_EX 1.0
+robocode.battle.selectedRobots=sample.Crazy,sample.Fire,sample.Corners,sample.SpinBot,sample.RamFire,sample.Target,sample.VelociRobot,evolved.REX_${id}
+

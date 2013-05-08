@@ -13,8 +13,8 @@ class REXProblem extends TreeProblem {
     RobotBuilder robotBuilder = new RobotBuilder("templates/REX.template")
     BattleRunner battleRunner = new BattleRunner("templates/battle.template")
 
-    def width = "width"
-    def height = "height"
+//    def width = "width"
+//    def height = "height"
     def energy = "energy"
     def gunHeading = "gunHeading"
     def gunHeat = "gunHeat"
@@ -31,8 +31,8 @@ class REXProblem extends TreeProblem {
 
     def setAheadIf = {->
         def secondaryTerminals = [
-            width,
-            height,
+//            width,
+//            height,
             energy,
             gunHeading,
             gunHeat,
@@ -55,8 +55,8 @@ class REXProblem extends TreeProblem {
 
     def setAhead = {->
         def secondaryTerminals = [
-            width,
-            height,
+//            width,
+//            height,
 //            energy,
 //            gunHeading,
 //            gunHeat,
@@ -77,8 +77,8 @@ class REXProblem extends TreeProblem {
 
     def setBackIf = {->
         def secondaryTerminals = [
-            width,
-            height,
+//            width,
+//            height,
             energy,
             gunHeading,
             gunHeat,
@@ -101,8 +101,8 @@ class REXProblem extends TreeProblem {
 
     def setBack = {->
         def secondaryTerminals = [
-            width,
-            height,
+//            width,
+//            height,
 //            energy,
 //            gunHeading,
 //            gunHeat,
@@ -123,8 +123,8 @@ class REXProblem extends TreeProblem {
 
     def setFireIf = {->
         def secondaryTerminals = [
-            width,
-            height,
+//            width,
+//            height,
             energy,
             gunHeading,
             gunHeat,
@@ -169,8 +169,8 @@ class REXProblem extends TreeProblem {
 
     def setTurnGunLeftIf = {->
         def secondaryTerminals = [
-            width,
-            height,
+//            width,
+//            height,
             energy,
             gunHeading,
             gunHeat,
@@ -215,8 +215,8 @@ class REXProblem extends TreeProblem {
 
     def setTurnGunRightIf = {->
         def secondaryTerminals = [
-            width,
-            height,
+//            width,
+//            height,
             energy,
             gunHeading,
             gunHeat,
@@ -261,8 +261,8 @@ class REXProblem extends TreeProblem {
     
     def setTurnLeftIf = {->
         def secondaryTerminals = [
-            width,
-            height,
+//            width,
+//            height,
             energy,
             gunHeading,
             gunHeat,
@@ -307,8 +307,8 @@ class REXProblem extends TreeProblem {
 
     def setTurnRightIf = {->
         def secondaryTerminals = [
-            width,
-            height,
+//            width,
+//            height,
             energy,
             gunHeading,
             gunHeat,
@@ -353,8 +353,8 @@ class REXProblem extends TreeProblem {
 
     def setTurnRadarLeftIf = {->
         def secondaryTerminals = [
-            width,
-            height,
+//            width,
+//            height,
             energy,
             gunHeading,
             gunHeat,
@@ -399,8 +399,8 @@ class REXProblem extends TreeProblem {
 
     def setTurnRadarRightIf = {->
         def secondaryTerminals = [
-            width,
-            height,
+//            width,
+//            height,
             energy,
             gunHeading,
             gunHeat,

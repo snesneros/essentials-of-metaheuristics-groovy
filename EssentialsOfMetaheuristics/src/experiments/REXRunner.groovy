@@ -5,12 +5,9 @@ import applications.robocode.*
 
 class REXRunner {
 
-    static runExperiment(searcher, problem, numRuns = 100) {
-        for (i in 0..<numRuns) {
-            problem.evalCount = 0
-            def result = searcher.maximize(problem)
-            println "${searcher.toString()}\t${problem.toString()}\t${problem.quality(result)}\t${result}"
-        }
+    static runExperiment(searcher, problem) {
+        problem.evalCount = 0
+        def result = searcher.maximize(problem)
     }
 
     static main(args) {

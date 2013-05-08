@@ -1,6 +1,7 @@
 package evolved;
 
 import robocode.*;
+//import robocode.control.events.BattleStartedEvent;
 import java.awt.*;
 import static robocode.util.Utils.normalRelativeAngleDegrees;
 
@@ -8,8 +9,8 @@ public class REX_${id} extends AdvancedRobot {
     boolean movingForward;
     int dist = 50;
 
-    double width;
-    double height;
+//    double width;
+//    double height;
     double energy;
     double gunHeading;
     double gunHeat;
@@ -38,12 +39,12 @@ public class REX_${id} extends AdvancedRobot {
         }
     }
 
-    //    public void onBattleStarted(BattleStartedEvent event) {
-    //        numOpponents = event.getRobotsCount() - 1;
-    //        BattleRules rules = event.getBattleRules();
-    //        width = rules.getBattlefieldWidth();
-    //        height = rules.getBattlefieldHeight();
-    //    }
+//        public void onBattleStarted(BattleStartedEvent event) {
+//            numOpponents = event.getRobotsCount() - 1;
+//            BattleRules rules = event.getBattleRules();
+//            width = rules.getBattlefieldWidth();
+//            height = rules.getBattlefieldHeight();
+//        }
 
     //This method is called when your robot collides with a wall.
     public void onHitWall(HitWallEvent e) {
